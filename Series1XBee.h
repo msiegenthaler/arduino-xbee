@@ -7,13 +7,15 @@
 #define XBeeAddress uint64_t
 
 /**
+ * Sends/receives message using the series 1 xbee protocol.
+ * All messages are sent untracked.
  */
 class Series1XBee {
 public:
 	/**
 	 * Constructor
 	 */
-	SimpleWpanXBee(LowlevelXBee *lowlevel);
+	Series1XBee(LowlevelXBee *lowlevel);
 
 	/**
 	 * Send a wpan data packet.

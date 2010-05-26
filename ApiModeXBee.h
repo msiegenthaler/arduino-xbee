@@ -20,7 +20,7 @@
  *  - buffering
  *  - composing and error-checking the received packets
  */
-class ApiModeXBee extends LowLevelXBee {
+class ApiModeXBee : public LowlevelXBee {
 public:
 	/**
 	 * Contructor.

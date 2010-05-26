@@ -1,6 +1,13 @@
 #ifndef LowlevelXBee_h
 #define LowlevelXBee_h
 
+#undef int
+#undef abs
+#undef double
+#undef float
+#undef round
+
+#include "WProgram.h"
 #include <inttypes.h>
 
 #define MAX_PACKET_SIZE 256
@@ -26,12 +33,12 @@ public:
 	 * @param payload payload to send
 	 * @param length length of the payload
 	 */
-	void send(uint8_t *payload, uint8_t length);
+	virtual void send(uint8_t *payload, uint8_t length);
 
 	/**
 	 * @return true if a packet is available
 	 */
-	bool available();
+	virtual bool available();
 
 	/**
 	 * Receive the next packet from the xbee.
@@ -41,7 +48,7 @@ public:
 	 * @param length will be set to the length of data
 	 * @return true if a packet was available
 	 */
-	bool receive(uint8_t **data, uint8_t *length);
+	virtual bool receive(uint8_t **data, uint8_t *length);
 };
 
 
