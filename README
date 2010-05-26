@@ -1,0 +1,14 @@
+Arduino Library for XBee communication
+--------------------------------------
+
+This library helps the arduino to communicate to remote xbee-attached devices (i.e. a PC or a sensor) via XBee.
+By making use of NewSoftSerial it allows to attach the xbee to any two pins and does not block the hardware serial.
+
+
+The architecture of the library is layered:
+
+- Layer 0: Abstracts communication with the xbee that is directly attached to the arduino.
+	Interface: LowlevelXBee
+	Implementation: ApiModeXBee
+- Layer 1: Communication with remote xbees, abstracts the encoding and decoding of messages (rx/tx).
+	Implementations: Series1XBee 

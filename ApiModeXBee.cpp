@@ -1,17 +1,17 @@
 #include "WConstants.h"
-#include "LowlevelXBee.h"
+#include "ApiModeXBee.h"
 #include <WProgram.h>
 
 #define XBEE_START_BYTE 0x7E
 #define PAYLOAD_OFFSET 3
 
-LowlevelXBee::LowlevelXBee(NewSoftSerial *serial) {
+ApiModeXBee::ApiModeXBee(NewSoftSerial *serial) {
 	_serial = serial;
 	_buffer_length = 0;
 	_payload_length = 0;
 }
 
-void LowlevelXBee::send(uint8_t *payload, uint8_t length) {
+void ApiModeXBee::send(uint8_t *payload, uint8_t length) {
 	sendByte(XBEE_START_BYTE);
 	sendByte(0); //more significant bytes of length --> always 0
 	sendByte(length);
@@ -26,11 +26,11 @@ void LowlevelXBee::send(uint8_t *payload, uint8_t length) {
 	sendByte(checksum);
 }
 
-bool LowlevelXBee::available() {
+bool ApiModeXBee::available() {
 	return parseInput();
 }
 
-bool LowlevelXBee::receive(uint8_t **data, uint8_t *length) {
+bool ApiModeXBee::receive(uint8_t **data, uint8_t *length) {
 	parseInput();
 	if (_payload_length == 0)
 		return false;
@@ -41,7 +41,7 @@ bool LowlevelXBee::receive(uint8_t **data, uint8_t *length) {
 	return true;
 }
 
-bool LowlevelXBee::parseInput() {
+bool ApiModeXBee::parseInput() {
 	if (_payload_length > 0) return true;
 	if (!_serial->available()) return false;
 
@@ -90,7 +90,7 @@ bool LowlevelXBee::parseInput() {
 	return true;
 }
 
-bool LowlevelXBee::skipToNextPacket() {
+bool ApiModeXBee::skipToNextPacket() {
 	while (_serial->available()) {
 		uint8_t b = _serial->read();
 		if (b == XBEE_START_BYTE) {
@@ -102,7 +102,7 @@ bool LowlevelXBee::skipToNextPacket() {
 	return false;
 }
 
-void LowlevelXBee::sendByte(uint8_t data) {
+void ApiModeXBee::sendByte(uint8_t data) {
 	_serial->print(data);
 }
 

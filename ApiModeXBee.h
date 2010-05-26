@@ -1,25 +1,32 @@
-#ifndef LowlevelXBee_h
-#define LowlevelXBee_h
+#ifndef ApiModeXBee_h
+#define ApiModeXBee_h
 
+#include "NewSoftSerial/NewSoftSerial.h"
+#include "LowlevelXBee.h"
 #include <inttypes.h>
 
 #define MAX_PACKET_SIZE 256
 
 
 /**
- * Low-Level interface to the directly attached xbee.
+ * Low-Level interface to an API-mode XBee attached serially (with NewSoftSerial).
  * The communication is based upon packets that can be sent to or received from the locally attached xbee. This
  * interface does not provide native support for communication with remote xbees, you have to encode data to send
  * into the appropriate packets yourself.
  *
- * An implementation of handles:
+ * An implementation of this class handles:
  * 	- calculation of checksums
  * 	- setting/encoding of the packet's length
  *  - buffering
  *  - composing and error-checking the received packets
  */
-class LowlevelXBee {
+class ApiModeXBee extends LowLevelXBee {
 public:
+	/**
+	 * Contructor.
+	 */
+	ApiModeXBee(NewSoftSerial *serial);
+
 	/**
 	 * Sends the payload as a packet to the xbee.
 	 * The length of the payload must be <= 252 bytes
@@ -42,6 +49,18 @@ public:
 	 * @return true if a packet was available
 	 */
 	bool receive(uint8_t **data, uint8_t *length);
+
+
+private:
+	NewSoftSerial *_serial;
+
+	uint8_t _buffer[MAX_PACKET_SIZE];
+	uint8_t _buffer_length;
+	uint8_t _payload_length;
+
+	void sendByte(uint8_t data);
+	bool parseInput();
+	bool skipToNextPacket();
 };
 
 
