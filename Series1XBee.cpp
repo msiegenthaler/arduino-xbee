@@ -2,6 +2,10 @@
 #include "Series1XBee.h"
 #include <WProgram.h>
 
+bool isBroadcastAddress(XBeeAddress address) {
+	return address == BROADCAST_ADDRESS;
+}
+
 
 Series1XBee::Series1XBee(LowlevelXBee *lowlevel) {
 	_lowlevel = lowlevel;

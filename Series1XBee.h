@@ -6,6 +6,9 @@
 #define WPAN_MAX_PAYLOAD 100
 #define XBeeAddress uint64_t
 
+#define BROADCAST_ADDRESS 0xFFFF
+bool isBroadcastAddress(XBeeAddress address);
+
 /**
  * Sends/receives message using the series 1 xbee protocol.
  * All messages are sent untracked.
