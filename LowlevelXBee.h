@@ -10,6 +10,24 @@
 #include "WProgram.h"
 #include <inttypes.h>
 
+#define DEBUG_LOWLEVEL
+//#define DEBUG_LOWLEVEL to get serial debug output for lowlevel packets (api-commands)
+#define DEBUG_PACKETS
+//#define DEBUG_PACKETS to get serial debug output for all packets sent and received to/from other xbees
+
+#ifdef DEBUG_LOWLEVEL
+#define DEBUG_FUNS
+#endif
+#ifdef DEBUG_PACKETS
+#define DEBUG_FUNS
+#endif
+#ifdef DEBUG_FUNS
+void printHex(uint8_t *data, uint8_t len, bool seperate);
+void printAddress(uint64_t address);
+#endif
+
+
+
 #define MAX_PACKET_SIZE 256
 
 

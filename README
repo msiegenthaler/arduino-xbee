@@ -9,6 +9,6 @@ The architecture of the library is layered:
 
 - Layer 0: Abstracts communication with the xbee that is directly attached to the arduino.
 	Interface: LowlevelXBee
-	Implementation: ApiModeXBee
+	Implementation: HardSerialApiModeXBee, NewSoftSerialApiModeXBee
 - Layer 1: Communication with remote xbees, abstracts the encoding and decoding of messages (rx/tx).
 	Implementations: Series1XBee 
