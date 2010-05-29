@@ -16,7 +16,7 @@ void Series1XBee::send(XBeeAddress address, uint8_t *data, uint8_t length) {
 	uint8_t len = length+11;
 	uint8_t buffer[len];
 	buffer[0] = 0x00; //Api-Id
-	buffer[1] = 0x01; //Frame-Id
+	buffer[1] = 0x00; //Frame-Id (no frame)
 	buffer[2] = (address >> 56) & 0xFF;
 	buffer[3] = (address >> 48) & 0xFF;
 	buffer[4] = (address >> 40) & 0xFF;
