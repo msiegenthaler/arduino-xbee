@@ -16,7 +16,7 @@ void Series1XBee::send(XBeeAddress address, uint8_t *data, uint8_t length) {
 	uint8_t len = length+11;
 	uint8_t buffer[len];
 	buffer[0] = 0x00; //Api-Id
-	buffer[1] = 0x00; //Frame-Id (no frame)
+	buffer[1] = 0x00; //Frame-Id (no-frame id)
 	buffer[2] = (address >> 56) & 0xFF;
 	buffer[3] = (address >> 48) & 0xFF;
 	buffer[4] = (address >> 40) & 0xFF;
@@ -26,7 +26,7 @@ void Series1XBee::send(XBeeAddress address, uint8_t *data, uint8_t length) {
 	buffer[8] = (address >> 8) & 0xFF;
 	buffer[9] = address & 0xFF;
 	buffer[10] = 0x00; //Options
-	memcpy(&buffer+11, data, length);
+	memcpy(&buffer[11], data, length);
 	_lowlevel->send(buffer, len);
 
 #ifdef DEBUG_PACKETS
@@ -34,6 +34,9 @@ void Series1XBee::send(XBeeAddress address, uint8_t *data, uint8_t length) {
 	printHex(data, length, true);
 	Serial.print("' to ");
 	printAddress(address);
+	Serial.println();
+	Serial.print("Packet is: ");
+	printHex(buffer, len, true);
 	Serial.println();
 #endif
 }
