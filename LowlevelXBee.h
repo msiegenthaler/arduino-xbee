@@ -10,7 +10,7 @@
 #include "WProgram.h"
 #include <inttypes.h>
 
-#define DEBUG_LOWLEVEL
+//#define DEBUG_LOWLEVEL
 //#define DEBUG_LOWLEVEL to get serial debug output for lowlevel packets (api-commands)
 #define DEBUG_PACKETS
 //#define DEBUG_PACKETS to get serial debug output for all packets sent and received to/from other xbees
