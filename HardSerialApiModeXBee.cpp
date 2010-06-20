@@ -16,6 +16,5 @@ uint8_t HardSerialApiModeXBee::serialRead() {
 }
 
 void HardSerialApiModeXBee::serialPrint(uint8_t data) {
-	Serial.print(data, HEX);
 	_serial->print(data);
 }
